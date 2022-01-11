@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="JSDB_test" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\JSDB_test.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="JSDB_testConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.DataTable" Member="DataTable">
+    <Type Name="DataTable">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="nazwa" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="dataa" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="godzina" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="usr" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="roz" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="pol" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
