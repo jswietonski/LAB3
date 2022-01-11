@@ -87,6 +87,15 @@ namespace LAB3
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator1;
 
         /// <summary>
+        /// Kontrolka CustomValidator3.
+        /// </summary>
+        /// <remarks>
+        /// Pole generowane automatycznie.
+        /// By zmodyfikować deklaracje pola przenieś ją z pliku projektanta do pliku codebehind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator3;
+
+        /// <summary>
         /// Kontrolka JSPanel1.
         /// </summary>
         /// <remarks>
@@ -139,6 +148,15 @@ namespace LAB3
         /// By zmodyfikować deklaracje pola przenieś ją z pliku projektanta do pliku codebehind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
+
+        /// <summary>
+        /// Kontrolka CustomValidator2.
+        /// </summary>
+        /// <remarks>
+        /// Pole generowane automatycznie.
+        /// By zmodyfikować deklaracje pola przenieś ją z pliku projektanta do pliku codebehind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator2;
 
         /// <summary>
         /// Kontrolka dane1.

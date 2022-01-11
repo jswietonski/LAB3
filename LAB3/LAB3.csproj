@@ -74,6 +74,7 @@
     <Content Include="App_Data\JSDB_test_log.ldf">
       <DependentUpon>JSDB_test.mdf</DependentUpon>
     </Content>
+    <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="WebForm1.aspx" />
   </ItemGroup>
@@ -84,6 +85,9 @@
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </Compile>
     <Compile Include="DbManager.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>

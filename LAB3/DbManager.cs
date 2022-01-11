@@ -10,7 +10,7 @@ namespace LAB3
     {
         public static void INSERT(DataClasses1DataContext dc, int id, string nazwavar, int uservar = 0, int rozvar = 0, int polvar = 0)
         {
-            // tworzymy nowy obiekt klasy ProductCategory 
+
             DataTable prod = new DataTable();           
             prod.Id = id;
             prod.nazwa = nazwavar;
@@ -20,53 +20,45 @@ namespace LAB3
             prod.usr = uservar;
             prod.roz = rozvar;
             prod.pol = polvar;
-            // Wywołujemy metode InsertOnSubmit oraz zaspisujemy dane
+
             dc.DataTable.InsertOnSubmit(prod);
             dc.SubmitChanges();
-            // zwracamy ostatni rekord w celu sprawdzenia powyższego kodu           
-            // Wyświetlamy ten element w konsoli
+
 
             
         }
         public static void DELETE(DataClasses1DataContext dc, string nazwavar)
         {
-            // w pierwszej kolejności zwracamy dane, które chcemy usuanąć
+
             var data = from p in dc.DataTable
                        where p.nazwa.Contains(nazwavar)
                        select p;
-            // kasujemy zwrócone dane z naszej tabeli
             dc.DataTable.DeleteAllOnSubmit(data);
-            // zapisujemy zmiany
             dc.SubmitChanges();
 
         }
         public static void UPDATE(DataClasses1DataContext dc, string nazwavar, int uservar, int rozvar, int polvar)
         {
-            // dokonamy update wszystkich rekordow w ktorych nazwa produktu zaiwiera "Tube"
+
             var update = from p in dc.DataTable
                          where p.nazwa.Contains(nazwavar)
                          select p;
-            // Zmieniamy nazwę na inną, przy czym nazwa musi być unikalna
-            // wg. projektu tej konkretnej bazy danych
             foreach (var item in update)
             {
                 item.usr = uservar;
                 item.roz = rozvar;
                 item.pol = polvar;
                 
-            }
-            // Zapisujemy zmiany            
+            }          
             dc.SubmitChanges();           
         }
         public static bool SELECT(DataClasses1DataContext dc, string nazwavar)
         {
-            // zwracamy dane z tabeli Product gdzie cena jest większa niż 300
             var data = from p in dc.DataTable
                        where p.nazwa == nazwavar
                        select p;
             foreach (var item in data)
             {
-                // Wypisujemy podstawowe informacje
                 Debug.WriteLine(item.nazwa);
             }
             if (data.Count()==0)
@@ -82,7 +74,6 @@ namespace LAB3
         }
         public static int SELECTmaxID(DataClasses1DataContext dc)
         {
-            // zwracamy dane z tabeli Product gdzie cena jest większa niż 300
             var data = from p in dc.DataTable
                        select p.Id;
             try { int maxID = data.Max();
@@ -116,7 +107,7 @@ namespace LAB3
             var update = (from p in dc.DataTable
                           where p.nazwa.Contains(nazwavar)
                           select p).First();
-            update.usr = update.usr++;
+            update.usr = update.usr + 1;
             Debug.WriteLine("Updatuje");
             dc.SubmitChanges();
         }
@@ -145,10 +136,90 @@ namespace LAB3
             var update = (from p in dc.DataTable
                           where p.nazwa.Contains(nazwavar)
                           select p).First();
-            update.pol = update.pol++;
+            update.pol = update.pol + 1;
             Debug.WriteLine("Updatuje");
             dc.SubmitChanges();           
         }
+
+        public static void UPDATEactive(DataClasses1DataContext dc, string nazwavar)
+        {
+            var update = (from p in dc.DataTable
+                          where p.nazwa == nazwavar
+                          select p).First();
+            update.usr = 1;
+            Debug.WriteLine("Updatuje");
+            dc.SubmitChanges();
+        }
+
+        public static void UPDATEdisactive(DataClasses1DataContext dc, string nazwavar)
+        {
+            var update = (from p in dc.DataTable
+                          where p.nazwa == nazwavar
+                          select p).First();
+            update.usr = 0;
+            Debug.WriteLine("Updatuje");
+            dc.SubmitChanges();
+        }
+
+        public static int SELECTcount(DataClasses1DataContext dc)
+        {
+
+            var data = from p in dc.DataTable
+                       select p;
+            return data.Count();
+        }
+        public static int SELECTcountActive(DataClasses1DataContext dc)
+        {
+
+            var data = from p in dc.DataTable
+                       where p.usr == 1
+                       select p;
+            return data.Count();
+        }
+
+
+        public static void UPDATEdisactiveAll(DataClasses1DataContext dc)
+        {
+            var update = (from p in dc.DataTable                         
+                          select p);
+            foreach (var item in update)
+            {
+                item.usr = 0;                               
+            }
+            Debug.WriteLine("Zmieniam kazdemu usr na 0");
+            dc.SubmitChanges();
+        }
+
+        public static List<String> SELECTusrlist(DataClasses1DataContext dc)
+        {
+            List<String> lista = new List<String>();
+            var data = from p in dc.DataTable
+                       where p.usr == 1
+                       select p.nazwa;
+            foreach (var item in data)
+            {
+                lista.Add(item);
+            }
+            return lista;
+        }
+
+        public static bool SELECTisActive(DataClasses1DataContext dc, string nazwavar)
+        {
+            var data = (from p in dc.DataTable
+                       where p.nazwa == nazwavar
+                       select p.usr).First();
+            if (data == 1)
+            {
+                Debug.WriteLine("true");
+                return true;
+            }
+            else
+            {
+                Debug.WriteLine("false");
+                return false;
+            }
+        }
+
     }
 
     

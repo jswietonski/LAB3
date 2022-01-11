@@ -11,4 +11,10 @@
       <Column Name="pol" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.licznik" Member="licznik">
+    <Type Name="licznik">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="liczbaUsr" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

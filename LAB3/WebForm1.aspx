@@ -71,7 +71,8 @@
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="JSTextBox1" ValidationExpression ="[a-zA-Z]+\s[a-zA-Z]+" runat="server" ErrorMessage="Identyfikator nie jest zgodny ze wzorcem" Display="None" />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Wypelnienie tego pola jest wymagane" ControlToValidate="JSTextBox1" Display="None"></asp:RequiredFieldValidator>
                 <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Takie imie i nazwisko znajduje sie bazie" ControlToValidate="JSTextBox1" Display="None"></asp:CustomValidator>
-                
+                <asp:CustomValidator ID="CustomValidator3" runat="server" ErrorMessage="Ten uzytkwonik ma juz aktywna sesje" ControlToValidate="JSTextBox1" Display="None"></asp:CustomValidator>
+               
             </div>
           
         </asp:Panel>
@@ -106,7 +107,9 @@
                     
                     <ContentTemplate>
                         <p class="naglowek"> Dane uzytkwonikow</p>
-                        <asp:DropDownList ID="DropDownList2" runat="server"></asp:DropDownList><br />
+                        <asp:DropDownList ID="DropDownList2" runat="server" AutoPostBack="True"></asp:DropDownList><br />
+                        <asp:CustomValidator ID="CustomValidator2" runat="server" ErrorMessage="Ten uzytkownik ma aktywna sesje" ControlToValidate="JSTextBox1" Display="None"></asp:CustomValidator>
+                        <br />
                         <asp:Label id="dane1"  runat="server" Text="Data Uruchomienia:" CssClass="JSlabel"></asp:Label>
                         <asp:Label id="Label2"  runat="server" Text="" CssClass="JSlabel"></asp:Label><br />
 

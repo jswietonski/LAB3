@@ -193,7 +193,7 @@ namespace LAB3
         protected void JSButton1_Click1(object sender, EventArgs e)
         {
             DataClasses1DataContext dc = new DataClasses1DataContext();
-
+            Session["RegUser"] = JSTextBox1.Text;
             if (DbManager.SELECT(dc, JSTextBox1.Text))
             {
 
@@ -201,24 +201,32 @@ namespace LAB3
                 JSPanel2.Visible = false;
                 Label1.Text = JSTextBox1.Text;
                 int maxID = DbManager.SELECTmaxID(dc);
-                DbManager.INSERT(dc, maxID + 1, JSTextBox1.Text);
+                DbManager.INSERT(dc, maxID + 1, Session["RegUser"].ToString());
+                DbManager.UPDATEactive(dc, Session["RegUser"].ToString());
                 Debug.WriteLine("Nie ma w bazie");
 
             }
             else
             {
+                if(DbManager.SELECTisActive(dc, JSTextBox1.Text))
+                {
+                    CustomValidator3.IsValid = false;
+                }
+                else
+                { 
                 JSPanel1.Visible = true;
                 JSPanel2.Visible = false;
                 Label1.Text = JSTextBox1.Text;
                 CustomValidator1.IsValid = false;
                 Debug.WriteLine("Takie imie jest juz w bazie");
+                DbManager.UPDATEactive(dc, Session["RegUser"].ToString());
                 List<string> list = DbManager.SELECTrow(dc, JSTextBox1.Text);
                 Label2.Text = list.ElementAt(1);
                 Label3.Text = list.ElementAt(2);
                 Label4.Text = list.ElementAt(4);
                 Label5.Text = list.ElementAt(5);
                 Label6.Text = list.ElementAt(3);
-
+                }
             }
 
 
@@ -232,26 +240,43 @@ namespace LAB3
         protected void Timer1_Tick(object sender, EventArgs e)
         {
             DataClasses1DataContext dc = new DataClasses1DataContext();
-            //DropDownList dl = new DropDownList();
-            //List<JSlista> JSusers = (List<JSlista>)Application["users"];
-            //DropDownList2.Items.Clear();
-            //foreach (JSlista item in JSusers)
-            //{
-            //    DropDownList2.Items.Add((string)item.getUz());
-            //}
-            //JSPanel1.Controls.Add(dl);
-            List<string> list = DbManager.SELECTrow(dc, JSTextBox1.Text);
+            DropDownList dl = new DropDownList();
+            DropDownList2.Items.Clear();
+            List<String> JSusr = DbManager.SELECTusrlist(dc);
+            foreach (string item in JSusr)
+            {
+                DropDownList2.Items.Add((string)item);
+            }
+            JSPanel1.Controls.Add(dl);
+            List<string> list = DbManager.SELECTrow(dc, Session["RegUser"].ToString());
             Label2.Text = list.ElementAt(1);
             Label3.Text = list.ElementAt(2);
             Label4.Text = list.ElementAt(4);
             Label5.Text = list.ElementAt(5);
-            Label6.Text = list.ElementAt(3);
+            //ile usr
+            Label6.Text = DbManager.SELECTcount(dc).ToString();
             //Debug.WriteLine("Odswiezam");
+            Label7.Text = DbManager.SELECTcountActive(dc).ToString();
         }
 
         protected void JSTextBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataClasses1DataContext dc = new DataClasses1DataContext();
+            if (DbManager.SELECTisActive(dc, DropDownList2.SelectedItem.Value))
+            {
+                CustomValidator2.IsValid = false;
+            }
+            else
+            {
+                Session["RegUser"] = DropDownList2.SelectedItem.Value;
+                DbManager.UPDATEactive(dc, Session["RegUser"].ToString());
+
+            }
         }
     }
 }
