@@ -14,7 +14,8 @@ namespace LAB3
 
         protected void Application_Start(object sender, EventArgs e)
         {
-
+            DataClasses1DataContext dc = new DataClasses1DataContext();
+            DbManager.UPDATEdisactiveAll(dc);
         }
 
         protected void Session_Start(object sender, EventArgs e)
